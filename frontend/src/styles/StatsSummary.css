@@ -1,81 +1,137 @@
 .stats-summary {
-  background: #faf9ff;
-  padding: 24px 20px;
-  border-radius: 18px;
-  box-shadow: 0 4px 25px rgba(124, 72, 214, 0.15);
-  max-width: 100%;
-  margin-bottom: 32px;
-  user-select: none;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1100px;
+  background: linear-gradient(115deg, #f9fbff 75%, #f1f7fa 100%);
+  border-radius: 24px;
+  box-shadow: 0 8px 32px rgba(60, 90, 120, 0.12);
+  padding: 40px 36px;
+  animation: fadeInStatsSummary 1s cubic-bezier(.77,0,.18,1);
+}
+
+@keyframes fadeInStatsSummary {
+  from { opacity: 0; transform: translateY(48px) scale(.98);}
+  to   { opacity: 1; transform: translateY(0) scale(1);}
 }
 
 .stats-summary h3 {
-  color: #5a3fa1;
-  font-weight: 700;
-  font-size: 1.4rem;
-  margin-bottom: 22px;
-  text-align: center;
-  letter-spacing: 0.04em;
+  font-size: 28px;
+  font-weight: 800;
+  color: #2e2a5c;
+  margin-bottom: 34px;
+  text-shadow: 0 3px 16px #d8e4fb;
+  letter-spacing: 1px;
 }
 
 .stats-cards-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 16px;
+  gap: 32px;
+  justify-content: center;
 }
 
 .stats-card {
   flex: 1 1 220px;
-  min-width: 220px;
+  background: linear-gradient(127deg, #ebf6ff 70%, #e9eaff 100%);
+  border: 2.3px solid #b7d8fc;
+  border-radius: 22px;
+  padding: 32px 22px 28px 22px;
+  min-width: 240px;
+  max-width: 270px;
+  box-shadow: 0 6px 32px rgba(65,110,170,0.11), 0 2px 10px rgba(44,92,206,0.04);
+  transition: box-shadow 0.18s, border 0.18s, transform 0.23s;
+  position: relative;
+  overflow: hidden;
 }
 
+.stats-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(150deg, rgba(116,178,255,0.13) 12%, rgba(255,234,190,0.14) 84%);
+  z-index: 0;
+  border-radius: 20px;
+  pointer-events: none;
+}
 
 .stats-card:hover {
-  box-shadow: 0 8px 16px rgba(124, 72, 214, 0.3);
+  box-shadow: 0 10px 34px 2px #b6e5ff70, 0 2px 30px 4px #e9bcf370;
+  border: 2.6px solid #457ae7;
+  transform: scale(1.034);
+  background: linear-gradient(110deg, #f6fafe 85%, #fff6e7 100%);
 }
 
-
 .stats-card h4 {
+  font-size: 20px;
   font-weight: 700;
-  font-size: 1.1rem;
-  color: #6d40cc;
-  margin-bottom: 16px;
-  text-align: center;
+  color: #3050c7;
+  margin-bottom: 15px;
+  letter-spacing: 0.8px;
+  position: relative;
+  z-index: 2;
 }
 
 .stats-card table {
   width: 100%;
-  border-collapse: collapse;
-  font-size: 0.9rem;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: transparent;
+  font-size: 16px;
+  font-weight: 500;
+  user-select: all; /* Kopyalanabilirlik */
+  cursor: pointer;
+  z-index: 2;
 }
 
-.stats-card th,
-.stats-card td {
-  padding: 8px 6px;
-  border-bottom: 1px solid #ece8fa;
+.stats-card th, .stats-card td {
+  border: 1.5px solid #dbefff;
+  padding: 8px 12px;
   text-align: left;
-  color: #4c357b;
-  font-weight: 600;
+  background: rgba(255,255,255,0.85);
+  transition: background 0.13s, color 0.13s;
+  z-index: 2;
 }
 
 .stats-card th {
-  background-color: #f4eeff;
-  border-radius: 10px 10px 0 0;
-}
-
-.stats-card tbody tr:last-child td {
-  border-bottom: none;
-}
-
-.stats-total-row {
+  background: linear-gradient(90deg, #d7eaff 70%, #faf6e7 100%);
+  font-size: 15.5px;
+  color: #325fb8;
   font-weight: 700;
-  color: #3b2a88;
-  background-color: #ede7fc;
-}
-.stats-summary table thead tr {
-  background-color: #6d40cc;
-  color: white;
+  letter-spacing: .3px;
+  border-bottom: 2.5px solid #8cc3fc;
 }
 
-.stats-summary table tbody tr:nth-child(even) {
-  background-color: #f6f3ff;
+.stats-card tr:hover td {
+  background: linear-gradient(93deg, #f5edff 60%, #d3efff 100%);
+  color: #212e52;
+}
+
+.stats-total-row td {
+  font-weight: 800;
+  background: linear-gradient(90deg, #e7ffe9 60%, #e5f0ff 100%);
+  color: #13a142;
+  border-top: 2.8px solid #85d288;
+  font-size: 17px;
+  text-shadow: 0 1px 0.5px #f3f3f3b8;
+}
+
+.stats-card table tr:last-child td {
+  border-bottom: 2.5px solid #b3e6b6;
+}
+
+@media (max-width: 1050px) {
+  .stats-cards-container {
+    flex-direction: column;
+    gap: 22px;
+  }
+  .stats-card {
+    min-width: 0;
+    max-width: 100%;
+    width: 100%;
+  }
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cee3f9;
+  border-radius: 10px;
 }

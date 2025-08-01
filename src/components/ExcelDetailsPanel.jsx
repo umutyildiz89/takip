@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "../styles/ExcelDetailsPanel.css";
 
 const DETAIL_FIELDS = [
-  { key: "aranmadi", label: "Aranmadı" },
+  { key: "aranmadi", label: "aranmadi" },
   { key: "tekrar_aranacak", label: "Tekrar Aranacak" },
   { key: "yakin_takip", label: "Yakın Takip" },
   { key: "takip", label: "Takip" },

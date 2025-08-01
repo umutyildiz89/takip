@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "../styles/StatsSummary.css";
 
 const STATUS_LABELS = {
-  aranmadı: "Aranmadı",
+  aranmadi: "aranmadi",
   tekrar_aranacak: "Tekrar Aranacak",
   yakin_takip: "Yakın Takip",
   takip: "Takip",

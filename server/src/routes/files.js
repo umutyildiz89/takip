@@ -55,7 +55,7 @@ router.get("/download/:filename", verifyUser, (req, res) => {
   res.download(filePath);
 });
 
-// Detayları güncelle
+// Detayları güncelle (sadece admin)
 router.put("/:id/details", verifyUser, async (req, res) => {
   try {
     if (req.user.role !== "admin") {
@@ -73,7 +73,7 @@ router.put("/:id/details", verifyUser, async (req, res) => {
   }
 });
 
-// Dosya silme endpoint'i
+// Dosya silme (sadece admin)
 router.delete("/:id", verifyUser, async (req, res) => {
   try {
     if (req.user.role !== "admin") {
@@ -81,7 +81,7 @@ router.delete("/:id", verifyUser, async (req, res) => {
     }
     const fileId = req.params.id;
 
-    // Dosya bilgisi çek (silmeden önce)
+    // Dosya bilgisi çek
     const [rows] = await pool.query("SELECT * FROM files WHERE id = ?", [fileId]);
     if (rows.length === 0) {
       return res.status(404).json({ message: "Dosya bulunamadı." });
@@ -106,8 +106,6 @@ router.delete("/:id", verifyUser, async (req, res) => {
 
 // İstatistik endpoint
 router.get("/stats", verifyUser, async (req, res) => {
-  console.log("Stats endpoint - Kullanıcı bilgisi:", req.user);
-
   try {
     const now = new Date();
     const oneDayAgo = new Date(now.getTime() - 24 * 60 * 60 * 1000);
@@ -115,7 +113,6 @@ router.get("/stats", verifyUser, async (req, res) => {
     const oneMonthAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
     const oneYearAgo = new Date(now.getTime() - 365 * 24 * 60 * 60 * 1000);
 
-    // Rol admin ise tüm dosyalar, değilse sadece kendi dosyaları üzerinden istatistik
     const isAdmin = req.user.role === "admin";
     const userId = req.user.id;
 
@@ -144,7 +141,7 @@ router.get("/stats", verifyUser, async (req, res) => {
       }
 
       const [rows] = await pool.query(query, params);
-      return rows[0];
+      return rows[0] || {};
     }
 
     const stats = {
@@ -155,12 +152,10 @@ router.get("/stats", verifyUser, async (req, res) => {
     };
 
     res.json({ stats });
-
   } catch (err) {
     console.error("Stats error:", err);
     res.status(500).json({ message: "İstatistik alınamadı." });
   }
 });
-
 
 module.exports = router;

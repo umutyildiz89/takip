@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "../styles/StatsSummary.css";
 
 const STATUS_LABELS = {
-  aranmadı: "Aranmadı",
+  aranmadi: "aranmadi",
   tekrar_aranacak: "Tekrar Aranacak",
   yakin_takip: "Yakın Takip",
   takip: "Takip",
@@ -17,6 +17,7 @@ const STATUS_LABELS = {
 function StatsSummary() {
   const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(""); // Hata mesajı için ek state
   const token = localStorage.getItem("token");
 
   useEffect(() => {
@@ -26,26 +27,42 @@ function StatsSummary() {
 
   const fetchStats = async () => {
     setLoading(true);
+    setError("");
     try {
       const response = await fetch("http://localhost:5000/api/files/stats", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
+
+      if (response.status === 401 || response.status === 403) {
+        setError("Yetkisiz erişim veya oturum süresi doldu. Lütfen tekrar giriş yapın.");
+        setStats(null);
+        setLoading(false);
+        return;
+      }
+
       const data = await response.json();
 
-      // API’den gelen veriyi konsola yazdır
-      console.log("API’den gelen stats verisi:", data);
+      if (!data || !data.stats) {
+        setError("İstatistik verisi alınamadı.");
+        setStats(null);
+      } else {
+        setStats(data.stats);
+      }
 
-      setStats(data.stats);
+      // Konsol çıktısı Türkçeleştirildi
+      console.log("API'den gelen istatistik verisi:", data);
     } catch (err) {
-      console.error("Stats fetch error:", err);
+      console.error("İstatistikler alınırken hata oluştu:", err);
+      setError("İstatistikler alınırken hata oluştu.");
       setStats(null);
     }
     setLoading(false);
   };
 
   if (loading) return <div className="stats-summary">Yükleniyor...</div>;
+  if (error) return <div className="stats-summary">{error}</div>;
   if (!stats) return <div className="stats-summary">Veri alınamadı.</div>;
 
   const statKeys = Object.keys(STATUS_LABELS);

@@ -3,6 +3,7 @@ import Header from "../components/Header";
 import Upload from "../components/Upload";
 import FileList from "../components/FileList";
 import AdminPanel from "../components/AdminPanel";
+import StatsSummary from "../components/StatsSummary"; // <-- BURADA IMPORT
 
 function Dashboard() {
   const userRole = localStorage.getItem("userRole");
@@ -18,6 +19,7 @@ function Dashboard() {
         paddingTop: "50px"
       }}>
         {userRole === "admin" && <AdminPanel />}
+        {userRole !== "admin" && <StatsSummary />}   {/*  <-- BURAYA EKLE */}
         <Upload />
         <FileList />
       </div>
