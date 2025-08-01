@@ -1,0 +1,153 @@
+.filelist-container {
+  background: #fff;
+  border-radius: 18px;
+  padding: 28px 18px;
+  box-shadow: 0 4px 25px 0 #7c48d62a;
+  margin: 0 auto;
+  min-width: 360px;
+  max-width: 640px;
+  animation: fadeInFileList 0.6s;
+}
+
+@keyframes fadeInFileList {
+  from { opacity: 0; transform: translateY(28px);}
+  to   { opacity: 1; transform: translateY(0);}
+}
+
+.filelist-container h3 {
+  color: #6545be;
+  font-size: 1.1rem;
+  margin-bottom: 16px;
+  font-weight: 600;
+}
+
+.filelist-loading,
+.filelist-empty {
+  text-align: center;
+  margin: 22px 0 8px 0;
+  color: #7674b8;
+  font-size: 1.07rem;
+}
+
+.filelist-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.filelist-table th, .filelist-table td {
+  padding: 9px 9px;
+  text-align: center;
+  border-bottom: 1px solid #eee;
+  font-size: 0.99rem;
+}
+
+.filelist-table th {
+  color: #6041af;
+  font-weight: 700;
+  background: #f6f3ff;
+  border-radius: 10px 10px 0 0;
+}
+
+.filelist-table tr:last-child td {
+  border-bottom: none;
+}
+
+.filelist-status {
+  padding: 6px 11px;
+  border-radius: 8px;
+  background: #eef4fd;
+  color: #525775;
+  font-size: 0.98rem;
+  text-transform: capitalize;
+  font-weight: 600;
+}
+
+.filelist-status-bekliyor { background: #fff7d6; color: #c2911b; }
+.filelist-status-ilk_arama { background: #e3ffe8; color: #319e56; }
+.filelist-status-yakin_takip { background: #e0f1ff; color: #3085bb; }
+.filelist-status-takip { background: #eaf6fd; color: #226b95; }
+.filelist-status-uzak_takip { background: #f1f1ff; color: #7163e7; }
+.filelist-status-numara_hatalı { background: #ffe6e6; color: #bb3d3d; }
+.filelist-status-ilgisiz { background: #ffefe5; color: #a45b1d; }
+.filelist-status-gercek_hesap { background: #e3ffed; color: #35a45d; }
+.filelist-status-erisilmedi { background: #eeeeee; color: #888; }
+.filelist-status-mesgul { background: #fff7e5; color: #bd851b; }
+
+.filelist-download-btn {
+  padding: 6px 16px;
+  background: linear-gradient(90deg, #67b4ee 65%, #7c48d6 100%);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.97rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.22s, transform 0.11s;
+  box-shadow: 0 1px 6px 0 #7c48d628;
+}
+.filelist-download-btn:hover {
+  background: linear-gradient(90deg, #7c48d6 30%, #67b4ee 100%);
+  transform: scale(1.04);
+}
+/* Container genişliklerini artır */
+.filelist-container, .details-panel {
+  max-width: 90vw; /* %90 ekran genişliği */
+  min-width: auto; /* minimum genişlik kaldır */
+}
+
+/* Tablolara yatay scroll aç */
+.filelist-container, .details-panel {
+  overflow-x: auto; /* yatay scroll aç */
+}
+
+/* Tablo ve detay tablosunu blok olarak göster, taşmayı engelle */
+.filelist-table, .details-table {
+  width: 100%;
+  min-width: 700px; /* geniş tablo için minimum genişlik */
+  border-collapse: collapse;
+  display: block; /* yatay scroll için */
+}
+
+/* Tablo hücreleri için kelime kırma */
+.filelist-table th, .filelist-table td,
+.details-cell {
+  white-space: nowrap; /* satır içi taşmayı engelle */
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Excel detaylarındaki satırları flex olarak bırak ama sığdır */
+.details-row {
+  min-width: 700px; /* en az genişlik ver */
+  flex-wrap: nowrap; /* satır içi kırma olmasın */
+}
+
+/* Dosya adı hücresine biraz daha genişlik ver */
+.details-filename {
+  min-width: 180px;
+  max-width: 280px;
+  word-break: break-word; /* dosya adı uzun ise satır kır */
+}
+
+/* Gerekirse containerlara padding azalt */
+.filelist-container, .details-panel {
+  padding-left: 12px;
+  padding-right: 12px;
+}
+.filelist-delete-btn {
+  padding: 6px 14px;
+  background: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s;
+}
+.filelist-delete-btn:hover {
+  background: #c0392b;
+}
+.filelist-delete-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
